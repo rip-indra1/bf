@@ -5457,7 +5457,7 @@ end)
         _G.FastAttack = value
     end)      
     
-    Main:AddToggle("Fast Attack Super Fast",_G.NotDeley,function(value)
+    Main:AddToggle("Fast Attack Super Fast",false,function(value)
         _G.NotDeley = value
     end)      
     
