@@ -5453,14 +5453,32 @@ spawn(function()
     end
 end)
 
-  
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 1";
+})  
+    Main:AddToggle("Fast Attack",true,function(value)
+        _G.FastAttack = value
+    end)      
+    
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 2";
+})  
+    Main:AddToggle("Fast Attack Super Fast [Trun on Fast Attack to use!!] ",_G.NotDeley,function(value)
+        _G.NotDeley = value
+    end)      
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 3";
+})  
+    
 local CameraShaker = require(game.ReplicatedStorage.Util.CameraShaker)
 CombatFrameworkR = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
 y = debug.getupvalues(CombatFrameworkR)[2]
-
-Main:AddToggle("Fast Attack",true,function(value)
-    _G.FastAttack = value
-end)      
 spawn(function()
     game:GetService("RunService").RenderStepped:Connect(function()
         if _G.FastAttack then
@@ -5482,9 +5500,6 @@ spawn(function()
         end
     end)
 end)
-Main:AddToggle("Fast Attack Super Fast [Trun on Fast Attack to use!!] ",_G.NotDeley,function(value)
-    _G.NotDeley = value
-end)      
 spawn(function()
     game:GetService("RunService").RenderStepped:Connect(function()
         if _G.FastAttack or _G.FastAttackCambodiakak == true then
