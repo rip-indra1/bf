@@ -5456,29 +5456,14 @@ end)
     Main:AddToggle("Fast Attack",true,function(value)
         _G.FastAttack = value
     end)      
-game.StarterGui:SetCore("SendNotification", {
-      Icon = "http://www.roblox.com/asset/?id=12523036534";
-      Title = "Lary", 
-      Text = "Lary 1";
-})  
     
     Main:AddToggle("Fast Attack Super Fast",false,function(value)
         _G.NotDeley = value
     end)      
     
-game.StarterGui:SetCore("SendNotification", {
-      Icon = "http://www.roblox.com/asset/?id=12523036534";
-      Title = "Lary", 
-      Text = "Lary 2";
-})  
 local CameraShaker = require(game.ReplicatedStorage.Util.CameraShaker)
 CombatFrameworkR = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
 y = debug.getupvalues(CombatFrameworkR)[2]
-game.StarterGui:SetCore("SendNotification", {
-      Icon = "http://www.roblox.com/asset/?id=12523036534";
-      Title = "Lary", 
-      Text = "Lary 3";
-})  
 spawn(function()
     game:GetService("RunService").RenderStepped:Connect(function()
         if _G.FastAttack then
@@ -5500,11 +5485,6 @@ spawn(function()
         end
     end)
 end)
-game.StarterGui:SetCore("SendNotification", {
-      Icon = "http://www.roblox.com/asset/?id=12523036534";
-      Title = "Lary", 
-      Text = "Lary 4";
-})  
 spawn(function()
     game:GetService("RunService").RenderStepped:Connect(function()
         if _G.FastAttack or _G.FastAttackCambodiakak == true then
@@ -5513,21 +5493,11 @@ spawn(function()
         end
     end)
 end)
-game.StarterGui:SetCore("SendNotification", {
-      Icon = "http://www.roblox.com/asset/?id=12523036534";
-      Title = "Lary", 
-      Text = "Lary 5";
-})  
     local CamShake = require(game.ReplicatedStorage.Util.CameraShaker)
     CamShake:Stop()
     local Client = game.Players.LocalPlayer
     local STOP = require(Client.PlayerScripts.CombatFramework.Particle)
     local STOPRL = require(game:GetService("ReplicatedStorage").CombatFramework.RigLib)
-game.StarterGui:SetCore("SendNotification", {
-      Icon = "http://www.roblox.com/asset/?id=12523036534";
-      Title = "Lary", 
-      Text = "Lary 6";
-})  
     spawn(function()
         while task.wait() do
             pcall(function()
@@ -5551,32 +5521,32 @@ game.StarterGui:SetCore("SendNotification", {
             end)
         end
     end)
-game.StarterGui:SetCore("SendNotification", {
-      Icon = "http://www.roblox.com/asset/?id=12523036534";
-      Title = "Lary", 
-      Text = "Lary 7";
-})  
 
 game.StarterGui:SetCore("SendNotification", {
       Icon = "http://www.roblox.com/asset/?id=12523036534";
       Title = "Lary", 
-      Text = "Lary 8";
+      Text = "Lary 1";
 })  
 local AttackList = {"0", "0.1", "0.15", "0.155", "0.16", "0.165", "0.17", "0.175", "0.18", "0.185"}
 game.StarterGui:SetCore("SendNotification", {
       Icon = "http://www.roblox.com/asset/?id=12523036534";
       Title = "Lary", 
-      Text = "Lary 9";
+      Text = "Lary 2";
 })  
 _G.FastAttackDelay = "0.175"
 game.StarterGui:SetCore("SendNotification", {
       Icon = "http://www.roblox.com/asset/?id=12523036534";
       Title = "Lary", 
-      Text = "Lary 10";
+      Text = "Lary 3";
 })  
 Main:AddDropdown("Fast Attack Delay", AttackList,function(MakoGay)
     _G.FastAttackDelay = MakoGay
 end)
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 4";
+})  
 spawn(function()
     while wait(.1) do
         if _G.FastAttackDelay then
