@@ -5521,6 +5521,11 @@ end)
             end)
         end
     end)
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 1";
+})  
 
 local AttackList = {"0", "0.1", "0.15", "0.155", "0.16", "0.165", "0.17", "0.175", "0.18", "0.185"}
 _G.FastAttackDelay = "0.175"
@@ -5557,6 +5562,11 @@ spawn(function()
     end
 end)
 
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 2";
+})  
 function GetBladeHit()
     local CombatFrameworkLib = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
     local CmrFwLib = CombatFrameworkLib[2]
@@ -5612,6 +5622,11 @@ spawn(function()
     end
 end)
 
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 3";
+})  
 spawn(function()
     game:GetService("RunService").RenderStepped:Connect(function()
         if _G.NotDeley then
@@ -5936,6 +5951,12 @@ end)
             end
         end)
 end)
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 4";
+})  
+
 Mirragecheck = M:AddLabel("")
 M:AddToggle("Auto Mystic Island",_G.AutoMysticIsland,function(value)
         _G.AutoMysticIsland = value
@@ -8770,6 +8791,11 @@ M:AddToggle("Auto Tushita", _G.Autotushita,function(value)
             end
         end
     end)
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 5";
+})  
 
     M:AddSeperator("Carvander")
 
@@ -10986,6 +11012,11 @@ ColorHaki = M:AddLabel("HuaiPaDang")
             end
         end)
     end)
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 6";
+})  
     
     M:AddToggle("Auto Rainbow Haki",_G.Auto_Rainbow_Haki,function(value)
         _G.Auto_Rainbow_Haki = value
@@ -13289,6 +13320,11 @@ spawn(function()
         wait(0.9)
     end
 end)
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 7";
+})  
     
     R:AddToggle("Auto Awakener",_G.Auto_Awakener,function(value)
         _G.Auto_Awakener = value
@@ -15177,6 +15213,11 @@ Misc:AddToggle("Graphic",false,function(v)
 			end
 		end
 	end)
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 8";
+})  
 
     Misc:AddSeperator("⚙️ Misc ⚙️")
 
@@ -15328,6 +15369,11 @@ end)
 	end)
 	
 	Misc:AddLine()
+game.StarterGui:SetCore("SendNotification", {
+      Icon = "http://www.roblox.com/asset/?id=12523036534";
+      Title = "Lary", 
+      Text = "Lary 9";
+})  
 	
     Misc:AddSeperator("Hack")
     Misc:AddButton("Unlock Buso",function()
