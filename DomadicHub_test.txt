@@ -3133,6 +3133,40 @@ spawn(function()
     end
 end)
 
+Type = 1
+spawn(function()
+    while wait(.1) do
+        if Frame == 1 then
+            Check = CFrame.new(0,50,0)
+		elseif F == 2 then
+			Check = CFrame.new(0,0,-100)
+		elseif F == 3 then
+			Check = CFrame.new(100,0,0)
+		elseif F == 4 then
+			Check = CFrame.new(0,0,100)	
+		elseif F == 5 then
+			Check = CFrame.new(-100,0,0)
+		elseif F == 6 then
+			Check = CFrame.new(0,50,0)
+        end
+        end
+    end)
+
+spawn(function()
+    while wait(.1) do
+        F = 1
+        wait(0.5)
+        F = 2
+        wait(0.5)
+        F = 3
+        wait(0.5)
+        F = 4
+        wait(0.5)
+        F = 5
+        wait(0.5)
+    end
+end)
+
 spawn(function()
     while wait(.1) do
 		if game.Players.LocalPlayer.Character.Humanoid.Health <= 100 or game.Players.LocalPlayer.Character.Humanoid.Health <= 26 then
@@ -3306,7 +3340,7 @@ end)
 
 H:AddLine()
 H:AddLabel("New Update Log")
-H:AddLabel("[+] Auto Get Fruit Inventory|20/2/2567|15:30")
+H:AddLabel("[+] Fix Fast Attack|10/3/2567|12:15")
 
 
 H:AddSeperator("UpdLog")
@@ -3408,6 +3442,7 @@ H:AddLabel("[+] Auto Farm No Quest|2/1/2567|20:28")
 H:AddLabel("[+] Auto Set Frame Mon (CheckMon)|9/1/2567|20:28")
 H:AddLabel("[+] Esp Kisune|14/1/2567|08:08")
 H:AddLabel("[+] Auto Get Fruit Inventory|20/2/2567|15:30")
+H:AddLabel("[+] Fix Fast Attack|10/3/2567|12:15")
 
 
 
@@ -3812,7 +3847,7 @@ spawn(function()
                         CheckQuest()
                         if BypassTP then
                         if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude > 1500 then
-						BTP(CFrameQuest * CFrame.new(0,20,0))
+						BTP(CFrameQuest * CFrame.new(0,20,5))
 						elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude < 1500 then
 						TP1(CFrameQuest)
 						end
@@ -3850,7 +3885,7 @@ spawn(function()
                                 end
                             end
                         else
-                            TP1(CFrameMon)
+                            TP1(CFrameMon * Check)
                             UnEquipWeapon(_G.SelectWeapon)
                             StartMagnet = false
                             if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
@@ -3914,7 +3949,7 @@ spawn(function()
                                 end
                             end
                         else
-                            TP1(CFrameMon)
+                            TP1(CFrameMon * Check)
                             UnEquipWeapon(_G.SelectWeapon)
                             StartMagnet = false
                             if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
@@ -4850,6 +4885,7 @@ Main:AddToggle("Auto Farm Chest Hop",_G.AutoFarmChest_Hop,function(value)
     _G.AutoFarmChest_Hop = value
     end)
 
+if World3 then
 
     Main:AddSeperator("Dought Boss")
     
@@ -5226,6 +5262,7 @@ spawn(function()
             end
         end
     end)
+end
    
     
     Main:AddSeperator("Boss")
@@ -5599,6 +5636,41 @@ spawn(function()
         end
     end
 end)
+local Client = game.Players.LocalPlayer
+local STOP = require(Client.PlayerScripts.CombatFramework.Particle)
+local STOPRL = require(game:GetService("ReplicatedStorage").CombatFramework.RigLib)
+task.spawn(function()
+	pcall(function()
+		if not shared.orl then
+			shared.orl = STOPRL.wrapAttackAnimationAsync
+		end
+			if not shared.cpc then
+				shared.cpc = STOP.play 
+			end
+		spawn(function()
+			game:GetService("RunService").Stepped:Connect(function()
+				STOPRL.wrapAttackAnimationAsync = function(a,b,c,d,func)
+					local Hits = STOPRL.getBladeHits(b,c,d)
+					if Hits then
+						if  _G.FastAttack then
+							STOP.play = function() end
+							a:Play(2.1,2.1,2.1)
+							func(Hits)
+							STOP.play = shared.cpc
+							wait(a.length * 0.5)
+							a:Stop()
+						else
+							func(Hits)
+							STOP.play = shared.cpc
+							wait(a.length * 0.5)
+							a:Stop()
+						end
+					end
+				end
+			end)
+		end)
+	end)
+	end)
 
 spawn(function()
     game:GetService("RunService").RenderStepped:Connect(function()
@@ -6021,19 +6093,15 @@ M:AddToggle("Teleport Advanced Fruit Dealer",_G.TPNPC,function(value)
         end)
 
 spawn(function()
-    pcall(function()
-    while wait() do
-        if _G.Miragenpc then
-            if game:GetService("Workspace").NPCs:FindFirstChild("Advanced Fruit Dealer") then
-                topos(CFrame.new(game:GetService("Workspace").NPCs["Advanced Fruit Dealer"].HumanoidRootPart.Position))
+        pcall(function()
+            while wait(.1) do
+                if _G.Miragenpc then    
+                    TweenNpc()
                 end
             end
-        end
+        end)
     end)
-end)
-M:AddButton("Teleport Advanced Fruit Dealer", function()
-                TweenNpc()
-                end)
+
 
                 function TweenNpc()
                     repeat
@@ -6051,6 +6119,7 @@ M:AddButton("Teleport Advanced Fruit Dealer", function()
                             end
                         end
                     end
+                    
 M:AddToggle("Tween Gear",_G.TweenMGear,function(value)
 _G.TweenMGear = value
 StopTween(_G.TweenMGear)
@@ -7889,7 +7958,7 @@ end
     end)
     
 
-    
+    if World3 then
     M:AddSeperator("Misc Buddy Sword")
     
     M:AddToggle("Auto Buddy Sword",_G.AutoBudySword,function(value)
@@ -7948,7 +8017,9 @@ end
             end
         end
     end)
+end
     
+if World3 then
     M:AddSeperator("Soul Guitar")
     
     local FM = M:AddLabel('Third World')
@@ -8147,7 +8218,9 @@ M:AddToggle("Auto Find Full Moon",_G.AutoFindFullmoon,function(value)
             end
         end
     end)
-    
+end
+   
+if World3 then 
  M:AddSeperator("Dual Curse Katana")
 
 M:AddToggle("Auto Dual Curse Katana",_G.AutoCdk,function(value)
@@ -8587,7 +8660,9 @@ spawn(function()
             end
         end
     end)
+end
 	
+	if World3 then
 	M:AddSeperator(" Tushita ")
 
 M:AddToggle("Auto Tushita", _G.Autotushita,function(value)
@@ -8646,7 +8721,9 @@ M:AddToggle("Auto Tushita", _G.Autotushita,function(value)
             end
         end
     end)
+end
 
+if World3 then
     M:AddSeperator("Carvander")
 
     M:AddToggle("Auto Cavander", _G.AutoCarvender,function(value)
@@ -8705,6 +8782,9 @@ M:AddToggle("Auto Tushita", _G.Autotushita,function(value)
             end
         end
     end)
+end
+
+if World3 then
     
     M:AddSeperator("Pirate Raid [BETA]")
     
@@ -8747,7 +8827,9 @@ M:AddToggle("Auto Tushita", _G.Autotushita,function(value)
         end
     end
     end)
+end
     
+if World3 then
     M:AddSeperator("Twin Hook")
     
     M:AddToggle("Auto Twin Hook", _G.AutoTwinHook,function(value)
@@ -8806,7 +8888,9 @@ M:AddToggle("Auto Tushita", _G.Autotushita,function(value)
             end
         end
     end)
-    
+end
+
+if World3 then  
     M:AddSeperator("Rough Sea")
     
     BoatDataLis = {
@@ -9337,6 +9421,7 @@ notification.Volume = 5 --ระวังหูแตก
             end
         end
     end)
+end
     
     M:AddLabel("Boat")
     
@@ -9405,7 +9490,8 @@ end)
                                 end
                             end
                         end)
-                        
+ 
+if World3 then              
 M:AddToggle("Auto Quest Shipwinght Teacher(Kill Shark 20)",_G.GetQuaetRepia,function(value)
 _G.GetQuestRepia = value 
 StopTween(_G.GetQuestRepia)
@@ -9501,7 +9587,7 @@ end)
     end)
     
     local Elite = CFrame.new(-5418.892578125, 313.74130249023, -2826.2260742188)
-    
+       
     spawn(function()
         while wait() do
             if _G.AutoElitehunter and World3 then
@@ -9541,17 +9627,21 @@ end)
                                     end
                                 end
                             else
-                                if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") then
-                                    topos(game:GetService("ReplicatedStorage"):FindFirstChild("Diablo").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
-                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") then
-                                    topos(game:GetService("ReplicatedStorage"):FindFirstChild("Deandre").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
-                                elseif game:GetService("ReplicatedStorage"):FindFirstChild("Urban") then
-                                    topos(game:GetService("ReplicatedStorage"):FindFirstChild("Urban").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
-                                else
-                                    if _G.AutoEliteHunterHop then
-                                        Hop()
-                                    else
-                                        topos(CFrame.new(-5418.892578125, 313.74130249023, -2826.2260742188))
+                                if BypassTP then
+                                   if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") then
+                                       BTP(game:GetService("ReplicatedStorage"):FindFirstChild("Diablo").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                                   elseif game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") then
+                                       BTP(game:GetService("ReplicatedStorage"):FindFirstChild("Deandre").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                                   elseif game:GetService("ReplicatedStorage"):FindFirstChild("Urban") then
+                                       BTP(game:GetService("ReplicatedStorage"):FindFirstChild("Urban").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                                   end
+                               else
+                                   if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") then
+                                       topos(game:GetService("ReplicatedStorage"):FindFirstChild("Diablo").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                                   elseif game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") then
+                                       topos(game:GetService("ReplicatedStorage"):FindFirstChild("Deandre").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                                   elseif game:GetService("ReplicatedStorage"):FindFirstChild("Urban") then
+                                       topos(game:GetService("ReplicatedStorage"):FindFirstChild("Urban").HumanoidRootPart.CFrame * CFrame.new(2,20,2))         
                                     end
                                 end
                             end                    
@@ -9562,10 +9652,24 @@ end)
         end
     end)
     
+    spawn(function()
+        while wait() do
+            if _G.AutoElitehunter and _G.AutoEliteHunterHop then
+                pcall(function()
+                    if not game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or not game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or not game:GetService("ReplicatedStorage"):FindFirstChild("Urban") then
+                        Hop()
+                    end
+                end)
+            end
+        end
+    end)
+    
     M:AddToggle("Auto Elite Hunter Hop",_G.AutoEliteHunterHop,function(value)
         _G.AutoEliteHunterHop = value
     end)
+    end
     
+    if World3 then
     M:AddSeperator("ArenaTrainer")
     
     M:AddToggle("Auto ArenaTrainer",_G.AutoArenaTrainer,function(value)
@@ -9681,7 +9785,9 @@ end)
             end
         end
     end)
+end
     
+    if World3 then
     M:AddSeperator("Dark Dagger")
     
     M:AddToggle("Auto Kill Admin Boss",_G.AutoDarkDagger,function(value)
@@ -9773,6 +9879,7 @@ spawn(function()
         end) 
     end
 end)
+end
     
     
 function EquipAllWeapon()
@@ -9787,6 +9894,7 @@ function EquipAllWeapon()
 	end)
 end
 
+if World2 or World3 then
     M:AddSeperator(" Sea Beast ")
  
     M:AddToggle('Teleport to Seabaeat', false, function(value)
@@ -9983,8 +10091,9 @@ end)
 M:AddToggle('Ennable Hop Sea Event Farm', false, function(value)
     _G.AutoSeaBestHop = value
     end)
+    end
     
-    
+    if World2 then
     M:AddSeperator(" Trident ")
 	
 	M:AddToggle("Auto Dragon Trident", _G.Auto_Dragon_Trident,function(value)
@@ -10043,7 +10152,9 @@ M:AddToggle('Ennable Hop Sea Event Farm', false, function(value)
             end
         end
     end)
+end
 
+if World1 then
 	M:AddSeperator(" Waden Sword ")
 	
 	M:AddToggle("Auto Waden Sword", _G.Autowaden,function(value)
@@ -10220,7 +10331,9 @@ local PolePos = CFrame.new(-7748.0185546875, 5606.80615234375, -2305.89868164062
             end
         end
     end)
+end
     
+    if World2 then
     M:AddSeperator("Misc Swan Glasses")
     
     M:AddToggle("Auto Swan Glasses",_G.AutoFarmSwanGlasses,function(value)
@@ -10259,10 +10372,22 @@ local PolePos = CFrame.new(-7748.0185546875, 5606.80615234375, -2305.89868164062
         end)
     end)
     
+    spawn(function()
+        pcall(function()
+            while wait(.1) do
+                if (_G.AutoFarmSwanGlasses and _G.AutoFarmSwanGlasses_Hop) and World2 and not game:GetService("ReplicatedStorage"):FindFirstChild("Don Swan [Lv. 1000] [Boss]") and not game:GetService("Workspace").Enemies:FindFirstChild("Don Swan [Lv. 1000] [Boss]") then
+                    Hop()
+                end
+            end
+        end)
+    end)
+    
     M:AddToggle("Auto Swan Glasses Hop",_G.AutoFarmSwanGlasses_Hop,function(value)
         _G.AutoFarmSwanGlasses_Hop = value
     end)
+end
     
+    if World1 then
     M:AddSeperator("Sharks Saw")
     
     M:AddToggle("Auto Sharks saw", _G.Autodoughking,function(value)
@@ -10321,18 +10446,10 @@ local PolePos = CFrame.new(-7748.0185546875, 5606.80615234375, -2305.89868164062
             end
         end
     end)
+end
     
     
-    spawn(function()
-        pcall(function()
-            while wait(.1) do
-                if (_G.AutoFarmSwanGlasses and _G.AutoFarmSwanGlasses_Hop) and World2 and not game:GetService("ReplicatedStorage"):FindFirstChild("Don Swan [Lv. 1000] [Boss]") and not game:GetService("Workspace").Enemies:FindFirstChild("Don Swan [Lv. 1000] [Boss]") then
-                    Hop()
-                end
-            end
-        end)
-    end)
-    
+if World3 then
     M:AddSeperator("Misc Bone")
     
     BoneCheck = M:AddLabel("Total Bone :  ")
@@ -10603,6 +10720,7 @@ end)
             end
         end)
     end)
+end
                 
     M:AddSeperator("Observation")
     
@@ -10715,6 +10833,7 @@ end)
         end)
     end)
     
+if World1 then
     M:AddSeperator("Saber")
     
     M:AddToggle("Auto Saber",_G.AutoSaber,function(value)
@@ -10773,7 +10892,7 @@ end)
 										topos(CFrame.new(-2967.59521, -4.91089821, 5328.70703, 0.342208564, -0.0227849055, 0.939347804, 0.0251603816, 0.999569714, 0.0150796166, -0.939287126, 0.0184739735, 0.342634559)) 
                                             for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                                 if v.Name == "Mob Leader" then
-                                                   if game:GetService("Workspace").Enemies:FindFirstChild("Mob Leader [Lv. 120] [Boss]") then
+                                                   if game:GetService("Workspace").Enemies:FindFirstChild("Mob Leader") then
                                                     if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                                         repeat task.wait()
                                                         AutoHaki()
@@ -10836,7 +10955,9 @@ end)
             end
         end
     end)
+end
     
+if World2 then
     M:AddSeperator("Legendary Sword")
     
 spawn(function()
@@ -10892,7 +11013,9 @@ LegendSwords = M:AddLabel("StatusCheck")
     M:AddToggle("Auto Legendary Sword Hop",_G.AutoBuyLegendarySword_Hop,function(value)
         _G.AutoBuyLegendarySword_Hop = value
     end)
+end
     
+if World2 or World3 then
     M:AddSeperator("Enchancement Colour")
     
     local KuyKoben = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer("ColorsDealer", "1")
@@ -10934,9 +11057,10 @@ ColorHaki = M:AddLabel("HuaiPaDang")
             end 
         end
     end)
+end
     
     M:AddSeperator("Other")
-    
+if World3 then
     M:AddToggle("Auto Musketeer Hat",_G.AutoMusketeerHat,function(value)
         _G.AutoMusketeerHat = value
         StopTween(_G.AutoMusketeerHat)
@@ -11017,7 +11141,7 @@ ColorHaki = M:AddLabel("HuaiPaDang")
             end
         end)
     end)
-    
+
     M:AddToggle("Auto Rainbow Haki",_G.Auto_Rainbow_Haki,function(value)
         _G.Auto_Rainbow_Haki = value
         StopTween(_G.Auto_Rainbow_Haki)
@@ -11189,7 +11313,9 @@ ColorHaki = M:AddLabel("HuaiPaDang")
             end)
         end
     end)
+end
     
+    if World2 then
     M:AddToggle("Auto Rengoku",_G.AutoRengoku,function(value)
         _G.AutoRengoku = value
         StopTween(_G.AutoRengoku)
@@ -11272,7 +11398,9 @@ ColorHaki = M:AddLabel("HuaiPaDang")
             end
         end)
     end)
+end
     
+    if World3 then
     M:AddToggle("Auto Yama",_G.AutoYama,function(value)
         _G.AutoYama = value
         StopTween(_G.AutoYama)
@@ -11289,7 +11417,9 @@ ColorHaki = M:AddLabel("HuaiPaDang")
             end
         end
     end)
+end
     
+    if World2 then
     M:AddToggle("Auto Evo Race (V2)",_G.Auto_EvoRace,function(value)
         _G.Auto_EvoRace = value
         StopTween(_G.Auto_EvoRace)
@@ -11437,7 +11567,8 @@ ColorHaki = M:AddLabel("HuaiPaDang")
             end
         end)
     end)
-    
+end
+if World3 then
     M:AddToggle("Auto Holy Torch",_G.AutoHolyTorch,function(value)
         _G.AutoHolyTorch = value
         StopTween(_G.AutoHolyTorch)
@@ -11480,6 +11611,7 @@ ColorHaki = M:AddLabel("HuaiPaDang")
         end)
     end
 end)
+end
     
     spawn(function()
         while task.wait() do
@@ -13195,7 +13327,10 @@ end)
             end
         end
     end)
-    
+    if World1 then 
+    R:AddLabel("Not Found Dungeons! In World 1")
+    end
+    if World2 or World3 then 
     local TimeRaid = R:AddLabel("Wait For Dungeon")
     
     local Island1 = R:AddLabel(": lsland 1")
@@ -13513,7 +13648,8 @@ end)
             topos(CFrame.new(-11571.440429688, 49.172668457031, -7574.7368164062))
         end)
     end
-    
+end
+    if World2 then 
     R:AddSeperator("Misc KoKo Sword")
     
  R:AddToggle("Auto Law Sword (New !)", _G.AutoOderSword,function(value)
@@ -13529,9 +13665,9 @@ end)
         while wait() do
             if  _G.AutoOderSword then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Order [Lv. 1250] [Raid Boss]") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Order") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Order [Lv. 1250] [Raid Boss]" then
+                            if v.Name == "Order" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -13548,8 +13684,8 @@ end)
                             end
                         end
                     else
-                        if game:GetService("ReplicatedStorage"):FindFirstChild("Order [Lv. 1250] [Raid Boss]") then
-                            topos(game:GetService("ReplicatedStorage"):FindFirstChild("Order [Lv. 1250] [Raid Boss]").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        if game:GetService("ReplicatedStorage"):FindFirstChild("Order") then
+                            topos(game:GetService("ReplicatedStorage"):FindFirstChild("Order").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                         else
                             if  _G.AutoOderSwordHop then
                                 Hop()
@@ -13575,6 +13711,7 @@ end)
             fireclickdetector(game:GetService("Workspace").Map.CircleIsland.RaidSummon.Button.Main.ClickDetector)
         end
     end)
+end
 
 
     T:AddSeperator("World")
