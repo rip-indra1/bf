@@ -138,6 +138,7 @@ function F()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, "F", false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, "F", false, game)
 end
+print("======== GetBladeHit ========") 
 function GetBladeHit()
     local CombatFrameworkLib =
         debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
@@ -152,6 +153,7 @@ function GetBladeHit()
     end
     return weapon
 end
+print("======== AttackHit ========") 
 function AttackHit()
     local CombatFrameworkLib =
         debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
@@ -193,6 +195,7 @@ function AttackHit()
         end
     end
 end
+print("======== line 198 ========") 
 
 spawn(
     function()
