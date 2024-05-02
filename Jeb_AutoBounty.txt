@@ -165,6 +165,7 @@ spawn(
     end
 )
 if getgenv().Click["FastAttack"] then
+    print("==============================")
     while wait(0.9) do
         AttackHit()
     end
