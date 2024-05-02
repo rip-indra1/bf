@@ -220,11 +220,13 @@ spawn(
         )
     end
 )
+print("======== 001 ========") 
 if getgenv().Click["FastAttack"] then
     while wait(0.9) do
         AttackHit()
     end
 end
+print("======== 002 ========") 
 if getgenv().Buy["Bone"] then -- ["Fruits"]
     while wait() do
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones", "Buy", 1, 1)
@@ -278,6 +280,7 @@ if getgenv().Buy["Store Fruits"] then
         end
     end
 end
+print("======== 003 ========") 
 spawn(
     function()
         while wait(getgenv().Click["ClickDelay"]) do
@@ -304,6 +307,7 @@ if getgenv().Main["KenHaki"] then
         game:GetService("ReplicatedStorage").Remotes.CommE:FireServer("Ken", true)
     end
 end
+print("======== 004 ========") 
 while wait() do
     if game:GetService("Players").LocalPlayer.PlayerGui.Main.PvpDisabled.Visible == true then
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EnablePvp")
@@ -388,6 +392,7 @@ if getgenv().Lock["Fps Boost"] then
         end
     end
 end
+print("======== 005 ========") 
 spawn(
     function()
         pcall(
@@ -453,6 +458,7 @@ spawn(
         )
     end
 )
+print("======== 006 ========") 
 spawn(
     function()
         while wait() do
