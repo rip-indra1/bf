@@ -11,7 +11,7 @@ getgenv().Buy = {
 getgenv().ChatWhenHunt = {
     ["ChatWhenHunt"] = true,
     ["TimeToChat"] = "20",
-    ["ChatWhenHunt"] = "Van De Ky's Nang"
+    ["ChatWhenHunt"] = "gg"
 }
 getgenv().Server = {
     ["HopServerMode"] = "Normal", -- LowPlayer , Normal
@@ -459,7 +459,9 @@ spawn(
             pcall(
                 function()
                     if getgenv().Main["StartHunt"] then
+                        print("StartHunt")
                         for i, v in pairs(game:GetService("Workspace").Characters:GetChildren()) do
+                            print(v.Name)
                             if v.Name ~= game.Players.LocalPlayer.Name then
                                 if
                                     v:WaitForChild("Humanoid").Health > 0 and
