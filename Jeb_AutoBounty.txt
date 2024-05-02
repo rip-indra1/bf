@@ -159,6 +159,7 @@ function AttackHit()
         debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
     local CmrFwLib = CombatFrameworkLib[2]
     local plr = game.Players.LocalPlayer
+    print("======== Called AttackHit() ========") 
     for i = 1, 1 do
         local bladehit =
             require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
