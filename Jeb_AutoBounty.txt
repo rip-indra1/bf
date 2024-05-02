@@ -1,0 +1,713 @@
+getgenv().Click = {
+    ["FastAttack"] = true,
+    ["ClickDelay"] = "0.1",
+    ["ClickM1"] = true
+}
+getgenv().Buy = {
+    ["Bone"] = true,
+    ["Fruits"] = true,
+    ["Store Fruits"] = true
+}
+getgenv().ChatWhenHunt = {
+    ["ChatWhenHunt"] = true,
+    ["TimeToChat"] = "20",
+    ["ChatWhenHunt"] = "Van De Ky's Nang"
+}
+getgenv().Server = {
+    ["HopServerMode"] = "Normal", -- LowPlayer , Normal
+    ["TimeToHop"] = "100"
+}
+getgenv().Main = {
+    ["StartHunt"] = true,
+    ["Auto V3"] = true,
+    ["Auto V4"] = true,
+    ["KenHaki"] = true,
+    ["WhiteScreen"] = true,
+    ["LowHealth"] = "3500",
+    ["MaxHealth"] = "3022",
+    ["RunIfLowHealth"] = true
+}
+getgenv().Lock = {
+    ["Fps Lock"] = "120",
+    ["Fps Boost"] = false
+}
+getgenv().Melee = {
+    ["Melee"] = true,
+    ["Delay"] = 1,
+    ["Skill Z"] = true,
+    ["TimeSkillZ"] = "1",
+    ["Skill X"] = true,
+    ["TimeSkillX"] = "0",
+    ["Skill C"] = true,
+    ["TimeSkillC"] = "0"
+}
+getgenv().Sword = {
+    ["Sword"] = true,
+    ["Delay"] = 1,
+    ["Skill Z"] = true,
+    ["TimeSkillZ"] = "1",
+    ["Skill X"] = true,
+    ["TimeSkillX"] = "0"
+}
+getgenv().Fruits = {
+    ["Fruits"] = true,
+    ["Delay"] = 1,
+    ["Skill Z"] = true,
+    ["TimeSkillZ"] = "1",
+    ["Skill X"] = true,
+    ["TimeSkillX"] = "0",
+    ["Skill C"] = true,
+    ["TimeSkillC"] = "0",
+    ["Skill V"] = true,
+    ["TimeSkillV"] = "0",
+    ["Skill F"] = true,
+    ["TimeSkillF"] = "0"
+}
+getgenv().Gun = {
+    ["Gun"] = true,
+    ["Delay"] = 1,
+    ["Skill Z"] = true,
+    ["TimeSkillZ"] = "1",
+    ["Skill X"] = true,
+    ["TimeSkillX"] = "0"
+}
+function Melee()
+    for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            if v.ToolTip == "Melee" then -- "Blox Fruit" , "Sword" , "Wear" , "Agility"
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+            end
+        end
+    end
+end
+function Sword()
+    for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            if v.ToolTip == "Sword" then -- "Blox Fruit" , "Sword" , "Wear" , "Agility"
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+            end
+        end
+    end
+end
+function Gun()
+    for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            if v.ToolTip == "Gun" then -- "Blox Fruit" , "Sword" , "Wear" , "Agility"
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+            end
+        end
+    end
+end
+function Df()
+    for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            if v.ToolTip == "Blox Fruit" then -- "Blox Fruit" , "Sword" , "Wear" , "Agility"
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+            end
+        end
+    end
+end
+function T()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "T", false, game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, "T", false, game)
+end
+function Y()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "Y", false, game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, "Y", false, game)
+end
+
+function Z()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "Z", false, game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, "Z", false, game)
+end
+
+function X()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "X", false, game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, "X", false, game)
+end
+
+function C()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "C", false, game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, "C", false, game)
+end
+function V()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "V", false, game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, "V", false, game)
+end
+function F()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "F", false, game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, "F", false, game)
+end
+spawn(
+    function()
+        pcall(
+            function()
+                game:GetService("RunService").RenderStepped:connect(
+                    function()
+                        if
+                            getgenv().Main["StartHunt"] and TargetPlayerAim ~= nil and
+                                game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") and
+                                game.Players.LocalPlayer.Character[
+                                    game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Name
+                                ]:FindFirstChild("MousePos")
+                         then
+                            local args = {
+                                [1] = game:GetService("Players"):FindFirstChild(TargetPlayerAim).Character.HumanoidRootPart.Position
+                            }
+                            game:GetService("Players").LocalPlayer.Character[
+                                game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Name
+                            ].RemoteEvent:FireServer(unpack(args))
+                        end
+                    end
+                )
+            end
+        )
+    end
+)
+if getgenv().Click["FastAttack"] then
+    while wait(0.9) do
+        AttackHit()
+    end
+end
+if getgenv().Buy["Bone"] then -- ["Fruits"]
+    while wait() do
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones", "Buy", 1, 1)
+    end
+end
+if getgenv().Buy["Fruits"] then
+    while wait() do
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Cousin", "Buy")
+    end
+end
+FruitList = {
+    "Bomb-Bomb",
+    "Spike-Spike",
+    "Chop-Chop",
+    "Spring-Spring",
+    "Kilo-Kilo",
+    "Spin-Spin",
+    "Bird: Falcon",
+    "Smoke-Smoke",
+    "Flame-Flame",
+    "Ice-Ice",
+    "Sand-Sand",
+    "Dark-Dark",
+    "Revive-Revive",
+    "Diamond-Diamond",
+    "Light-Light",
+    "Love-Love",
+    "Rubber-Rubber",
+    "Barrier-Barrier",
+    "Magma-Magma",
+    "Door-Door",
+    "Quake-Quake",
+    "Human-Human: Buddha",
+    "String-String",
+    "Bird-Bird: Phoenix",
+    "Rumble-Rumble",
+    "Paw-Paw",
+    "Gravity-Gravity",
+    "Dough-Dough",
+    "Venom-Venom",
+    "Shadow-Shadow",
+    "Control-Control",
+    "Soul-Soul",
+    "Dragon-Dragon",
+    "Leopart-Leopart"
+}
+if getgenv().Buy["Store Fruits"] then
+    while wait() do
+        for i, v in pairs(FruitList) do
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Store", v)
+        end
+    end
+end
+spawn(
+    function()
+        while wait(getgenv().Click["ClickDelay"]) do
+            if getgenv().Click["ClickM1"] then
+                pcall(
+                    function()
+                        game:GetService "VirtualUser":CaptureController()
+                        game:GetService "VirtualUser":Button1Down(Vector2.new(1280, 672))
+                    end
+                )
+            end
+        end
+    end
+)
+if getgenv().Main["WhiteScreen"] then
+    game:GetService("RunService"):Set3dRenderingEnabled(false)
+end
+if getgenv().Main["KenHaki"] then
+    while wait(10) do
+        game:GetService("Players").LocalPlayer.PlayerGui.Main.InCombat.Visible = false
+        game:GetService("Players").LocalPlayer.PlayerGui.Main.SafeZone.Visible = false
+        game:GetService("VirtualInputManager"):SendKeyEvent(true, "J", false, game)
+        game:GetService("VirtualInputManager"):SendKeyEvent(false, "J", false, game)
+        game:GetService("ReplicatedStorage").Remotes.CommE:FireServer("Ken", true)
+    end
+end
+function GetBladeHit()
+    local CombatFrameworkLib =
+        debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
+    local CmrFwLib = CombatFrameworkLib[2]
+    local p13 = CmrFwLib.activeController
+    local weapon = p13.blades[1]
+    if not weapon then
+        return weapon
+    end
+    while weapon.Parent ~= game.Players.LocalPlayer.Character do
+        weapon = weapon.Parent
+    end
+    return weapon
+end
+function AttackHit()
+    local CombatFrameworkLib =
+        debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
+    local CmrFwLib = CombatFrameworkLib[2]
+    local plr = game.Players.LocalPlayer
+    for i = 1, 1 do
+        local bladehit =
+            require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
+            plr.Character,
+            {plr.Character.HumanoidRootPart},
+            60
+        )
+        local cac = {}
+        local hash = {}
+        for k, v in pairs(bladehit) do
+            if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
+                table.insert(cac, v.Parent.HumanoidRootPart)
+                hash[v.Parent] = true
+            end
+        end
+        bladehit = cac
+        if #bladehit > 0 then
+            pcall(
+                function()
+                    CmrFwLib.activeController.timeToNextAttack = math.huge
+                    CmrFwLib.activeController.attacking = false
+                    CmrFwLib.activeController.blocking = false
+                    CmrFwLib.activeController.timeToNextBlock = math.huge
+                    CmrFwLib.activeController.increment = math.huge
+                    CmrFwLib.activeController.hitboxMagnitude = math.huge
+                    CmrFwLib.activeController.focusStart = math.huge
+                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer(
+                        "weaponChange",
+                        tostring(GetBladeHit())
+                    )
+                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
+                end
+            )
+        end
+    end
+end
+while wait() do
+    if game:GetService("Players").LocalPlayer.PlayerGui.Main.PvpDisabled.Visible == true then
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EnablePvp")
+    end
+end
+if getgenv().Lock["Fps Boost"] then
+    for i, v in pairs(game.Workspace.Map:GetDescendants()) do
+        if
+            v.Name == "Tavern" or v.Name == "SmileFactory" or v.Name == "Tree" or v.Name == "Rocks" or
+                v.Name == "PartHouse" or
+                v.Name == "Hotel" or
+                v.Name == "WallPiece" or
+                v.Name == "MiddlePillars" or
+                v.Name == "Cloud" or
+                v.Name == "PluginGrass" or
+                v.Name == "BigHouse" or
+                v.Name == "SmallHouse" or
+                v.Name == "Detail"
+         then
+            v:Destroy()
+        end
+    end
+    for i, v in pairs(game.ReplicatedStorage.Unloaded:GetDescendants()) do
+        if
+            v.Name == "Tavern" or v.Name == "SmileFactory" or v.Name == "Tree" or v.Name == "Rocks" or
+                v.Name == "PartHouse" or
+                v.Name == "Hotel" or
+                v.Name == "WallPiece" or
+                v.Name == "MiddlePillars" or
+                v.Name == "Cloud" or
+                v.Name == "PluginGrass" or
+                v.Name == "BigHouse" or
+                v.Name == "SmallHouse" or
+                v.Name == "Detail"
+         then
+            v:Destroy()
+        end
+    end
+    for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+        if v:IsA("Accessory") or v.Name == "Pants" or v.Name == "Shirt" then
+            v:Destroy()
+        end
+    end
+    local decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
+    local g = game
+    local w = g.Workspace
+    local l = g.Lighting
+    local t = w.Terrain
+    t.WaterWaveSize = 0
+    t.WaterWaveSpeed = 0
+    t.WaterReflectance = 0
+    t.WaterTransparency = 0
+    l.GlobalShadows = false
+    l.FogEnd = 9e9
+    l.Brightness = 0
+    settings().Rendering.QualityLevel = "Level01"
+    for i, v in pairs(g:GetDescendants()) do
+        if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+            v.Material = "Plastic"
+            v.Reflectance = 0
+        elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+            v.Transparency = 1
+        elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+            v.Lifetime = NumberRange.new(0)
+        elseif v:IsA("Explosion") then
+            v.BlastPressure = 1
+            v.BlastRadius = 1
+        elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+            v.Enabled = false
+        elseif v:IsA("MeshPart") then
+            v.Material = "Plastic"
+            v.Reflectance = 0
+            v.TextureID = 10385902758728957
+        end
+    end
+    for i, e in pairs(l:GetChildren()) do
+        if
+            e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or
+                e:IsA("DepthOfFieldEffect")
+         then
+            e.Enabled = false
+        end
+    end
+end
+spawn(
+    function()
+        pcall(
+            function()
+                while wait() do
+                    if getgenv().Main["StartHunt"] then
+                        if TargetSelectHunt ~= nil then
+                            if StartCheckTarget then
+                                wait(6.5)
+                                if
+                                    TargetSelectHunt.Health == TargetSelectHunt.MaxHealth or
+                                        TargetSelectHunt.Health >= plyselecthunthelpold
+                                 then
+                                    NextplySelect = true
+                                    TargetSelectHunt = nil
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        )
+    end
+)
+function Tween(P1)
+    Distance = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    if Distance < 1000 then
+        Speed = 400
+    elseif Distance >= 1000 then
+        Speed = 250
+    end
+    game:GetService("TweenService"):Create(
+        game.Players.LocalPlayer.Character.HumanoidRootPart,
+        TweenInfo.new(Distance / Speed, Enum.EasingStyle.Linear),
+        {CFrame = P1}
+    ):Play()
+    Clip = true
+    wait(Distance / Speed)
+    Clip = false
+end
+spawn(
+    function()
+        game:GetService("RunService").Heartbeat:Connect(
+            function()
+                if getgenv().Main["StartHunt"] then
+                    if not game:GetService("Workspace"):FindFirstChild("LOL") then
+                        local LOL = Instance.new("Part")
+                        LOL.Name = "LOL"
+                        LOL.Parent = game.Workspace
+                        LOL.Anchored = true
+                        LOL.Transparency = 1
+                        LOL.Size = Vector3.new(30, -0.5, 30)
+                    elseif game:GetService("Workspace"):FindFirstChild("LOL") then
+                        game.Workspace["LOL"].CFrame =
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, -3.6, 0)
+                    end
+                else
+                    if game:GetService("Workspace"):FindFirstChild("LOL") then
+                        game:GetService("Workspace"):FindFirstChild("LOL"):Destroy()
+                    end
+                end
+            end
+        )
+    end
+)
+spawn(
+    function()
+        while wait() do
+            pcall(
+                function()
+                    if getgenv().Main["StartHunt"] then
+                        for i, v in pairs(game:GetService("Workspace").Characters:GetChildren()) do
+                            if v.Name ~= game.Players.LocalPlayer.Name then
+                                if
+                                    v:WaitForChild("Humanoid").Health > 0 and
+                                        (game.Players.LocalPlayer.Character.HumanoidRootPart.Position -
+                                            v.HumanoidRootPart.Position).Magnitude <= 123456789
+                                 then
+                                    plyselecthunthelpold = v.Humanoid.Health
+                                    repeat
+                                        task.wait()
+                                        NameTarget = v.Name
+                                        if tostring(game.Players.LocalPlayer.Team) == "Pirates" then
+                                            Tween(v.HumanoidRootPart.CFrame * NewCframe)
+                                        elseif tostring(game.Players.LocalPlayer.Team) == "Marines" then
+                                            if game.Players[NameTarget].Team ~= game.Players.LocalPlayer.Team then
+                                                Tween(v.HumanoidRootPart.CFrame * NewCframe)
+                                            end
+                                        end
+                                        if
+                                            (v.HumanoidRootPart.Position -
+                                                game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <=
+                                                50
+                                         then
+                                            spawn(
+                                                function()
+                                                    if getgenv().Melee["Melee"] then
+                                                        Melee()
+                                                    end
+                                                    if getgenv().Melee["Skill Z"] then
+                                                        wait(getgenv().Melee["TimeSkillZ"])
+                                                        Z()
+                                                    end
+                                                    if getgenv().Melee["Skill X"] then
+                                                        wait(getgenv().Melee["TimeSkillX"])
+                                                        X()
+                                                    end
+                                                    if getgenv().Melee["Skill C"] then
+                                                        wait(getgenv().Melee["TimeSkillC"])
+                                                        C()
+                                                    end
+                                                    wait(getgenv().Melee["Melee"]["Delay"])
+                                                    if getgenv().Sword then
+                                                        Sword()
+                                                    end
+                                                    if getgenv().Sword["Skill Z"] then
+                                                        wait(getgenv().Sword["TimeSkillZ"])
+                                                        Z()
+                                                    end
+                                                    if getgenv().Sword["Skill X"] then
+                                                        wait(getgenv().Sword["TimeSkillX"])
+                                                        X()
+                                                    end
+                                                    wait(getgenv().Sword["Delay"])
+                                                    if getgenv().Fruits then
+                                                        Df()
+                                                    end
+                                                    if getgenv().Fruits["Skill Z"] then
+                                                        wait(getgenv().Fruits["TimeSkillZ"])
+                                                        Z()
+                                                    end
+                                                    if getgenv().Fruits["Skill X"] then
+                                                        wait(getgenv().Fruits["TimeSkillX"])
+                                                        X()
+                                                    end
+                                                    if getgenv().Fruits["Skill C"] then
+                                                        wait(getgenv().Fruits["TimeSkillC"])
+                                                        C()
+                                                    end
+                                                    wait(getgenv().Gun["Delay"])
+                                                    if getgenv().Gun then
+                                                        Gun()
+                                                    end
+                                                    if getgenv().Gun["Skill Z"] then
+                                                        wait(getgenv().Gun["TimeSkillZ"])
+                                                        Z()
+                                                    end
+                                                    if getgenv().Gun["Skill X"] then
+                                                        wait(getgenv().Gun["TimeSkillX"])
+                                                        X()
+                                                    end
+                                                    if getgenv().Main["Auto V3"] then
+                                                        while wait(20) do
+                                                            Y()
+                                                        end
+                                                    end
+                                                    if getgenv().Main["Auto V4"] then
+                                                        while wait(20) do
+                                                            T()
+                                                        end
+                                                    end
+                                                end
+                                            )
+                                        end
+                                        v.HumanoidRootPart.CanCollide = false
+                                        TargetSelectHunt = v.Humanoid
+                                    until _G.AutoFarmBounty == false or v.Humanoid.Health == 0 or
+                                        not v:FindFirstChild("HumanoidRootPart") or
+                                        not v:FindFirstChild("Humanoid") or
+                                        not v.Parent or
+                                        NextplySelect == true
+                                    NextplySelect = false
+                                    StartCheckTarget = false
+                                end
+                            end
+                        end
+                    end
+                end
+            )
+        end
+    end
+)
+spawn(
+    function()
+        while wait() do
+            pcall(
+                function()
+                    if getgenv().Main["StartHunt"] then
+                        if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("HasBuso") then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+                        end
+                    end
+                end
+            )
+        end
+    end
+)
+local MyHealth = game.Players.LocalPlayer.Character.Humanoid.Health
+spawn(
+    function()
+        if getgenv().Main["RunIfLowHealth"] and MyHealth <= getgenv().Main["LowHealth"] <= getgenv().Main["MaxHealth"] then
+            NewCframe = "CFrame.new(10,1000,10)"
+        elseif getgenv().Main["RunIfLowHealth"] and MyHealth >= getgenv().Main["MaxHealth"] then
+            NewCframe = "CFrame.new(1,2.5,15)"
+        end
+    end
+)
+if getgenv().ChatWhenHunt["ChatWhenHunt"] then
+    while wait(getgenv().ChatWhenHunt["TimeToChat"]) do
+        game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):FindFirstChild(
+            "SayMessageRequest"
+        ):FireServer(getgenv().ChatWhenHunt["ChatWhenHunt"], "All")
+    end
+end
+while wait() do
+    setfpscap(getgenv().Lock["Fps Lock"])
+end
+if getgenv().Server["HopServerMode"] == "Normal" then
+    wait(getgenv().Server["TimeToHop"])
+    local PlaceID = game.PlaceId
+    local AllIDs = {}
+    local foundAnything = ""
+    local actualHour = os.date("!*t").hour
+    local Deleted = false
+    function TPReturner()
+        local Site
+        if foundAnything == "" then
+            Site =
+                game.HttpService:JSONDecode(
+                game:HttpGet(
+                    "https://games.roblox.com/v1/games/" .. PlaceID .. "/servers/Public?sortOrder=Asc&limit=100"
+                )
+            )
+        else
+            Site =
+                game.HttpService:JSONDecode(
+                game:HttpGet(
+                    "https://games.roblox.com/v1/games/" ..
+                        PlaceID .. "/servers/Public?sortOrder=Asc&limit=100&cursor=" .. foundAnything
+                )
+            )
+        end
+        local ID = ""
+        if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+            foundAnything = Site.nextPageCursor
+        end
+        local num = 0
+        for i, v in pairs(Site.data) do
+            local Possible = true
+            ID = tostring(v.id)
+            if tonumber(v.maxPlayers) > tonumber(v.playing) then
+                for _, Existing in pairs(AllIDs) do
+                    if num ~= 0 then
+                        if ID == tostring(Existing) then
+                            Possible = false
+                        end
+                    else
+                        if tonumber(actualHour) ~= tonumber(Existing) then
+                            local delFile =
+                                pcall(
+                                function()
+                                    -- delfile("NotSameServers.json")
+                                    AllIDs = {}
+                                    table.insert(AllIDs, actualHour)
+                                end
+                            )
+                        end
+                    end
+                    num = num + 1
+                end
+                if Possible == true then
+                    table.insert(AllIDs, ID)
+                    wait()
+                    pcall(
+                        function()
+                            -- writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                            wait()
+                            game:GetService("TeleportService"):TeleportToPlaceInstance(
+                                PlaceID,
+                                ID,
+                                game.Players.LocalPlayer
+                            )
+                        end
+                    )
+                    wait(.1)
+                end
+            end
+        end
+    end
+    function Teleport()
+        while wait() do
+            pcall(
+                function()
+                    TPReturner()
+                    if foundAnything ~= "" then
+                        TPReturner()
+                    end
+                end
+            )
+        end
+    end
+    Teleport()
+end
+if getgenv().Server["HopServerMode"] == "LowPlayer" then
+    wait(getgenv().Server["TimeToHop"])
+    local Player = game.Players.LocalPlayer
+    local Http = game:GetService("HttpService")
+    local TPS = game:GetService("TeleportService")
+    local Api = "https://games.roblox.com/v1/games/"
+
+    local _place, _id = game.PlaceId, game.JobId
+    local _servers = Api .. _place .. "/servers/Public?sortOrder=Asc&limit=10"
+    function ListServers(cursor)
+        local Raw = game:HttpGet(_servers .. ((cursor and "&cursor=" .. cursor) or ""))
+        return Http:JSONDecode(Raw)
+    end
+
+    while wait(getgenv().Server["TimeToHop"]) do
+        Player.Character.HumanoidRootPart.Anchored = true
+        local Servers = ListServers()
+        local Server = Servers.data[math.random(1, #Servers.data)]
+        TPS:TeleportToPlaceInstance(_place, Server.id, Player)
+    end
+end
