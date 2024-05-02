@@ -138,6 +138,62 @@ function F()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, "F", false, game)
     game:GetService("VirtualInputManager"):SendKeyEvent(false, "F", false, game)
 end
+function GetBladeHit()
+    local CombatFrameworkLib =
+        debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
+    local CmrFwLib = CombatFrameworkLib[2]
+    local p13 = CmrFwLib.activeController
+    local weapon = p13.blades[1]
+    if not weapon then
+        return weapon
+    end
+    while weapon.Parent ~= game.Players.LocalPlayer.Character do
+        weapon = weapon.Parent
+    end
+    return weapon
+end
+function AttackHit()
+    local CombatFrameworkLib =
+        debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
+    local CmrFwLib = CombatFrameworkLib[2]
+    local plr = game.Players.LocalPlayer
+    for i = 1, 1 do
+        local bladehit =
+            require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
+            plr.Character,
+            {plr.Character.HumanoidRootPart},
+            60
+        )
+        local cac = {}
+        local hash = {}
+        for k, v in pairs(bladehit) do
+            if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
+                table.insert(cac, v.Parent.HumanoidRootPart)
+                hash[v.Parent] = true
+            end
+        end
+        bladehit = cac
+        if #bladehit > 0 then
+            pcall(
+                function()
+                    CmrFwLib.activeController.timeToNextAttack = math.huge
+                    CmrFwLib.activeController.attacking = false
+                    CmrFwLib.activeController.blocking = false
+                    CmrFwLib.activeController.timeToNextBlock = math.huge
+                    CmrFwLib.activeController.increment = math.huge
+                    CmrFwLib.activeController.hitboxMagnitude = math.huge
+                    CmrFwLib.activeController.focusStart = math.huge
+                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer(
+                        "weaponChange",
+                        tostring(GetBladeHit())
+                    )
+                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
+                end
+            )
+        end
+    end
+end
+
 spawn(
     function()
         pcall(
@@ -165,7 +221,6 @@ spawn(
     end
 )
 if getgenv().Click["FastAttack"] then
-    print("==============================")
     while wait(0.9) do
         AttackHit()
     end
@@ -247,61 +302,6 @@ if getgenv().Main["KenHaki"] then
         game:GetService("VirtualInputManager"):SendKeyEvent(true, "J", false, game)
         game:GetService("VirtualInputManager"):SendKeyEvent(false, "J", false, game)
         game:GetService("ReplicatedStorage").Remotes.CommE:FireServer("Ken", true)
-    end
-end
-function GetBladeHit()
-    local CombatFrameworkLib =
-        debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
-    local CmrFwLib = CombatFrameworkLib[2]
-    local p13 = CmrFwLib.activeController
-    local weapon = p13.blades[1]
-    if not weapon then
-        return weapon
-    end
-    while weapon.Parent ~= game.Players.LocalPlayer.Character do
-        weapon = weapon.Parent
-    end
-    return weapon
-end
-function AttackHit()
-    local CombatFrameworkLib =
-        debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
-    local CmrFwLib = CombatFrameworkLib[2]
-    local plr = game.Players.LocalPlayer
-    for i = 1, 1 do
-        local bladehit =
-            require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
-            plr.Character,
-            {plr.Character.HumanoidRootPart},
-            60
-        )
-        local cac = {}
-        local hash = {}
-        for k, v in pairs(bladehit) do
-            if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
-                table.insert(cac, v.Parent.HumanoidRootPart)
-                hash[v.Parent] = true
-            end
-        end
-        bladehit = cac
-        if #bladehit > 0 then
-            pcall(
-                function()
-                    CmrFwLib.activeController.timeToNextAttack = math.huge
-                    CmrFwLib.activeController.attacking = false
-                    CmrFwLib.activeController.blocking = false
-                    CmrFwLib.activeController.timeToNextBlock = math.huge
-                    CmrFwLib.activeController.increment = math.huge
-                    CmrFwLib.activeController.hitboxMagnitude = math.huge
-                    CmrFwLib.activeController.focusStart = math.huge
-                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer(
-                        "weaponChange",
-                        tostring(GetBladeHit())
-                    )
-                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
-                end
-            )
-        end
     end
 end
 while wait() do
